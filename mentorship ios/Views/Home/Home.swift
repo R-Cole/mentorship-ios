@@ -13,8 +13,17 @@ struct Home: View {
     private var relationsData: UIHelper.HomeScreen.RelationsListData {
         return homeViewModel.relationsListData
     }
-     
     
+    var userFirstName: String {
+        //Return just the first name
+        if let editFullName = self.homeViewModel.userName?.capitalized ?? "" {
+            let trimmedFullName = editFullName.trimmingCharacters(in: .whitespaces)
+            let userNameAsArray = trimmedFullName.components(separatedBy: " ")
+            return userNameAsArray[0]
+        }
+        return ""
+    }
+      
     func useHomeService() {
         // fetch dashboard and map to home view model
         self.homeService.fetchDashboard { home in
@@ -34,24 +43,6 @@ struct Home: View {
                 self.homeViewModel.firstTimeLoad = false
             }
         }
-    }
-    
-    func getUserFirstName(fullName: String?) -> String {
-         
-        //Return just the first name
-        if let editFullName = fullName ?? "" {
-            
-            //Field validation
-            //get rid of any spaces before the beginning of the name
-            let trimmedFullName = editFullName.trimmingCharacters(in: .whitespaces)
-            
-            if let index = trimmedFullName.firstIndex(of: " ") {
-                let firstName = String(trimmedFullName.prefix(upTo: index))
-                return firstName
-            }
-        }
-         
-        return ""
     }
     
     var body: some View {
@@ -90,7 +81,7 @@ struct Home: View {
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Welcome \(getUserFirstName(fullName: self.homeViewModel.userName?.capitalized))!", displayMode: .inline)
+            .navigationBarTitle("Welcome \(userFirstName)!", displayMode: .inline)
             .navigationBarItems(trailing:
                 NavigationLink(destination: ProfileSummary()) {
                         Image(systemName: ImageNameConstants.SFSymbolConstants.profileIcon)
