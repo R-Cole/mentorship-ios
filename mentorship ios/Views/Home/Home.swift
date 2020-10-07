@@ -13,6 +13,7 @@ struct Home: View {
     private var relationsData: UIHelper.HomeScreen.RelationsListData {
         return homeViewModel.relationsListData
     }
+     
     
     func useHomeService() {
         // fetch dashboard and map to home view model
@@ -33,6 +34,24 @@ struct Home: View {
                 self.homeViewModel.firstTimeLoad = false
             }
         }
+    }
+    
+    func getUserFirstName(fullName: String?) -> String {
+         
+        //Return just the first name
+        if let editFullName = fullName ?? "" {
+            
+            //Field validation
+            //get rid of any spaces before the beginning of the name
+            let trimmedFullName = editFullName.trimmingCharacters(in: .whitespaces)
+            
+            if let index = trimmedFullName.firstIndex(of: " ") {
+                let firstName = String(trimmedFullName.prefix(upTo: index))
+                return firstName
+            }
+        }
+         
+        return ""
     }
     
     var body: some View {
@@ -71,7 +90,7 @@ struct Home: View {
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Welcome \(self.homeViewModel.userName?.capitalized ?? "")!")
+            .navigationBarTitle("Welcome \(getUserFirstName(fullName: self.homeViewModel.userName?.capitalized))!", displayMode: .inline)
             .navigationBarItems(trailing:
                 NavigationLink(destination: ProfileSummary()) {
                         Image(systemName: ImageNameConstants.SFSymbolConstants.profileIcon)
