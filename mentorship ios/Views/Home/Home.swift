@@ -82,7 +82,7 @@ struct Home: View {
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Welcome \(userFirstName)!", displayMode: .inline)
+            .navigationBarTitle("Welcome \(userFirstName)!")
             .navigationBarItems(trailing:
                 NavigationLink(destination: ProfileSummary()) {
                         Image(systemName: ImageNameConstants.SFSymbolConstants.profileIcon)
