@@ -15,14 +15,14 @@ struct Home: View {
     }
     
     var userFirstName: String {
-    
         //Return just the first name
-        if let editFullName = self.homeViewModel.userName?.capitalized ?? "" {
+        if let editFullName = self.homeViewModel.userName?.capitalized {
             let trimmedFullName = editFullName.trimmingCharacters(in: .whitespaces)
             let userNameAsArray = trimmedFullName.components(separatedBy: " ")
             return userNameAsArray[0]
         }
         return ""
+        
     }
       
     func useHomeService() {
@@ -82,7 +82,7 @@ struct Home: View {
             }
             .listStyle(GroupedListStyle())
             .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Welcome \(userFirstName)!", displayMode: .inline)
+            .navigationBarTitle("Welcome \(userFirstName)!")
             .navigationBarItems(trailing:
                 NavigationLink(destination: ProfileSummary()) {
                         Image(systemName: ImageNameConstants.SFSymbolConstants.profileIcon)
