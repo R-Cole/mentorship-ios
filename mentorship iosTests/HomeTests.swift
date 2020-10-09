@@ -79,6 +79,7 @@ class HomeTests: XCTestCase {
     }
      
     func testUserFirstName() {
+ 
         //Test computed first name
         let testHome = Home()
         
@@ -97,6 +98,7 @@ class HomeTests: XCTestCase {
         // Set User name as optional nil
         testHome.homeViewModel.userName = nil
         XCTAssertEqual(testHome.userFirstName, "")
+ 
     }
     
 }

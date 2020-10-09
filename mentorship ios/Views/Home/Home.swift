@@ -15,6 +15,7 @@ struct Home: View {
     }
     
     var userFirstName: String {
+        
         //Return just the first name
         if let editFullName = self.homeViewModel.userName?.capitalized {
             let trimmedFullName = editFullName.trimmingCharacters(in: .whitespaces)
